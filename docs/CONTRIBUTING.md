@@ -69,7 +69,7 @@ type DatabaseConnection interface { ... }
 
 - All new features must include tests
 - Tests should use real PostgreSQL connections when possible
-- Use the `pgdbtemplate-pq_test` package for external API testing
+- Use the `pgdbtemplatepq_test` package for external API testing
 - Use `frankban/quicktest` for test assertions
 - Maintain or improve test coverage
 
