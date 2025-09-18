@@ -121,6 +121,16 @@ func TestStandardConnectionProvider(t *testing.T) {
 		c.Assert(err, qt.IsNotNil)
 	})
 
+	c.Run("Connection to nonexistent database", func(c *qt.C) {
+		nonExistentFunc := func(dbName string) string {
+			return pgdbtemplate.ReplaceDatabaseInConnectionString(testConnectionString, "nonexistent_db_12345")
+		}
+		provider := pgdbtemplatepq.NewConnectionProvider(nonExistentFunc)
+
+		_, err := provider.Connect(ctx, "nonexistent_db_12345")
+		c.Assert(err, qt.ErrorMatches, "failed to ping database:.*")
+	})
+
 	c.Run("GetNoRowsSentinel returns sql.ErrNoRows", func(c *qt.C) {
 		provider := pgdbtemplatepq.NewConnectionProvider(nil) // connStringFunc not needed for this test.
 		sentinel := provider.GetNoRowsSentinel()
