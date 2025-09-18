@@ -188,7 +188,7 @@ func benchmarkTraditionalDatabaseCreation(b *testing.B, numTables int) {
 		c.Assert(err, qt.IsNil)
 
 		// Run migrations.
-		conn := &pgdbtemplate.StandardDatabaseConnection{DB: testDB}
+		conn := &pgdbtemplatepq.DatabaseConnection{DB: testDB}
 		err = migrationRunner.RunMigrations(ctx, conn)
 		c.Assert(err, qt.IsNil)
 		c.Assert(testDB.Close(), qt.IsNil)
@@ -312,7 +312,7 @@ func BenchmarkConcurrentDatabaseCreation_Traditional(b *testing.B) {
 			testDB, err := sql.Open("postgres", benchConnectionStringFunc(dbName))
 			c.Assert(err, qt.IsNil)
 
-			conn := &pgdbtemplate.StandardDatabaseConnection{DB: testDB}
+			conn := &pgdbtemplatepq.DatabaseConnection{DB: testDB}
 			err = migrationRunner.RunMigrations(ctx, conn)
 			c.Assert(testDB.Close(), qt.IsNil)
 			c.Assert(err, qt.IsNil)
@@ -516,7 +516,7 @@ func benchmarkTraditionalBulkCleanup(b *testing.B, numDBs int) {
 			testDB, err := sql.Open("postgres", benchConnectionStringFunc(dbName))
 			c.Assert(err, qt.IsNil)
 
-			conn := &pgdbtemplate.StandardDatabaseConnection{DB: testDB}
+			conn := &pgdbtemplatepq.DatabaseConnection{DB: testDB}
 			err = migrationRunner.RunMigrations(ctx, conn)
 			c.Assert(err, qt.IsNil)
 			c.Assert(testDB.Close(), qt.IsNil)
@@ -586,7 +586,7 @@ func benchmarkTraditionalSequential(b *testing.B, numDBs int) {
 		testDB, err := sql.Open("postgres", benchConnectionStringFunc(dbName))
 		c.Assert(err, qt.IsNil)
 
-		conn := &pgdbtemplate.StandardDatabaseConnection{DB: testDB}
+		conn := &pgdbtemplatepq.DatabaseConnection{DB: testDB}
 		err = migrationRunner.RunMigrations(ctx, conn)
 		c.Assert(err, qt.IsNil)
 		c.Assert(testDB.Close(), qt.IsNil)
@@ -769,7 +769,7 @@ func benchmarkRealisticTraditionalWorkflow(b *testing.B, numTests, numTables int
 			testDB, err := sql.Open("postgres", benchConnectionStringFunc(dbName))
 			c.Assert(err, qt.IsNil)
 
-			conn := &pgdbtemplate.StandardDatabaseConnection{DB: testDB}
+			conn := &pgdbtemplatepq.DatabaseConnection{DB: testDB}
 			err = migrationRunner.RunMigrations(ctx, conn)
 			c.Assert(err, qt.IsNil)
 
