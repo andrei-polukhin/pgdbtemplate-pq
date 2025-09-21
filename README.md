@@ -17,7 +17,7 @@ using the `lib/pq` driver.
   lifetime settings
 - **🎯 PostgreSQL-specific** with robust error handling
 - **🧪 Test-ready** - designed for high-performance test database creation
-- **📦 Compatible** with pgdbtemplate's template database workflow
+- **📦 Compatible** with `pgdbtemplate`'s template database workflow
 
 ## Installation
 
@@ -210,6 +210,11 @@ from multiple goroutines.
 - Set `POSTGRES_CONNECTION_STRING` environment variable for tests
 - Close connections and drop test databases after use
 - Use context timeouts for connection operations
+
+## Security
+
+If you discover a security vulnerability, please report it responsibly.
+See [SECURITY.md](docs/SECURITY.md) for our security policy and reporting process.
 
 ## License
 

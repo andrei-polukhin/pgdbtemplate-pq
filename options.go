@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// DatabaseConnectionOption configures *sql.DB connection.
+// DatabaseConnectionOption configures DatabaseConnection.
 type DatabaseConnectionOption func(*sql.DB)
 
 // WithMaxOpenConns sets the maximum number of open connections.

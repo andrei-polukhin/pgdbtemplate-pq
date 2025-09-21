@@ -12,8 +12,8 @@ import (
 	pgdbtemplatepq "github.com/andrei-polukhin/pgdbtemplate-pq"
 )
 
-// TestStandardConnectionProvider tests the connection provider functionality.
-func TestStandardConnectionProvider(t *testing.T) {
+// TestConnectionProvider tests the connection provider functionality.
+func TestConnectionProvider(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
 	ctx := context.Background()
