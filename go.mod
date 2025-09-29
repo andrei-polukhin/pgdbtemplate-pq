@@ -3,7 +3,7 @@ module github.com/andrei-polukhin/pgdbtemplate-pq
 go 1.20
 
 require (
-	github.com/andrei-polukhin/pgdbtemplate v0.7.1
+	github.com/andrei-polukhin/pgdbtemplate v1.0.0
 	github.com/frankban/quicktest v1.14.6
 	github.com/lib/pq v1.10.9
 )
