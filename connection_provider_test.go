@@ -136,4 +136,37 @@ func TestConnectionProvider(t *testing.T) {
 		sentinel := provider.GetNoRowsSentinel()
 		c.Assert(sentinel, qt.Equals, sql.ErrNoRows)
 	})
+
+	c.Run("Concurrent connections", func(c *qt.C) {
+		c.Parallel()
+		connStringFunc := func(dbName string) string {
+			return pgdbtemplate.ReplaceDatabaseInConnectionString(testConnectionString, dbName)
+		}
+		provider := pgdbtemplatepq.NewConnectionProvider(connStringFunc)
+
+		const numGoroutines = 5
+		start := make(chan struct{})
+		results := make(chan error, numGoroutines)
+
+		// Create multiple connections concurrently.
+		for i := 0; i < numGoroutines; i++ {
+			go func() {
+				<-start // Wait for the signal to start.
+				conn, err := provider.Connect(ctx, "postgres")
+				if conn != nil {
+					defer conn.Close()
+				}
+				results <- err
+			}()
+		}
+
+		// Signal all goroutines to start simultaneously.
+		close(start)
+
+		// Wait for all goroutines to finish.
+		for i := 0; i < numGoroutines; i++ {
+			err := <-results
+			c.Assert(err, qt.IsNil)
+		}
+	})
 }
